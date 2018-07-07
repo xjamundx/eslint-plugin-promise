@@ -7,7 +7,7 @@ cache:
   directories:
     - "$HOME/.npm"
 install:
-  - npm i -g npm@5
+  - npm install -g npm@6
   - npm ci
 script:
   - npm run test -- --runInBand
