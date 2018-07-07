@@ -25,8 +25,8 @@
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-prettier": "^2.6.2",
     "husky": "^0.14.3",
-    "jest": "^22.4.2",
-    "jest-runner-eslint": "^0.4.0",
+    "jest": "^23.3.0",
+    "jest-runner-eslint": "^0.6.0",
     "lint-staged": "^6.1.0",
     "prettier": "^1.13.7"
   },
