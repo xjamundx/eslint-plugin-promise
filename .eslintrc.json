@@ -15,6 +15,7 @@
   ],
   "rules": {
     "no-var": "error",
+    "object-shorthand": "error",
     "prefer-const": "error",
     "strict": ["error", "global"],
     "eslint-plugin/prefer-placeholders": "error",

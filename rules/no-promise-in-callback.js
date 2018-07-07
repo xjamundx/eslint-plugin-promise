@@ -15,9 +15,9 @@ module.exports = {
       url: getDocsUrl('no-promise-in-callback')
     }
   },
-  create: function(context) {
+  create(context) {
     return {
-      CallExpression: function(node) {
+      CallExpression(node) {
         if (!isPromise(node)) return
 
         // if i'm returning the promise, it's probably not really a callback

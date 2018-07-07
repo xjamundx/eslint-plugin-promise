@@ -60,7 +60,7 @@ module.exports = {
       url: getDocsUrl('always-return')
     }
   },
-  create: function(context) {
+  create(context) {
     // funcInfoStack is a stack representing the stack of currently executing
     //   functions
     // funcInfoStack[i].branchIDStack is a stack representing the currently
@@ -105,25 +105,25 @@ module.exports = {
       ReturnStatement: markCurrentBranchAsGood,
       ThrowStatement: markCurrentBranchAsGood,
 
-      onCodePathSegmentStart: function(segment, node) {
+      onCodePathSegmentStart(segment, node) {
         const funcInfo = peek(funcInfoStack)
         funcInfo.branchIDStack.push(segment.id)
-        funcInfo.branchInfoMap[segment.id] = { good: false, node: node }
+        funcInfo.branchInfoMap[segment.id] = { good: false, node }
       },
 
-      onCodePathSegmentEnd: function() {
+      onCodePathSegmentEnd() {
         const funcInfo = peek(funcInfoStack)
         funcInfo.branchIDStack.pop()
       },
 
-      onCodePathStart: function() {
+      onCodePathStart() {
         funcInfoStack.push({
           branchIDStack: [],
           branchInfoMap: {}
         })
       },
 
-      onCodePathEnd: function(path, node) {
+      onCodePathEnd(path, node) {
         const funcInfo = funcInfoStack.pop()
 
         if (!isInlineThenFunctionExpression(node)) {

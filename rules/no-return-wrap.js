@@ -24,12 +24,12 @@ module.exports = {
       url: getDocsUrl('no-return-wrap')
     }
   },
-  create: function(context) {
+  create(context) {
     const options = context.options[0] || {}
     const allowReject = options.allowReject
 
     return {
-      ReturnStatement: function(node) {
+      ReturnStatement(node) {
         if (isInPromise(context)) {
           if (node.argument) {
             if (node.argument.type === 'CallExpression') {

@@ -16,9 +16,9 @@ module.exports = {
       url: getDocsUrl('no-callback-in-promise')
     }
   },
-  create: function(context) {
+  create(context) {
     return {
-      CallExpression: function(node) {
+      CallExpression(node) {
         const options = context.options[0] || {}
         const exceptions = options.exceptions || []
         if (!isCallback(node, exceptions)) {

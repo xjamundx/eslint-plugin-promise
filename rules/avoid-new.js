@@ -13,9 +13,9 @@ module.exports = {
       url: getDocsUrl('avoid-new')
     }
   },
-  create: function(context) {
+  create(context) {
     return {
-      NewExpression: function(node) {
+      NewExpression(node) {
         if (node.callee.name === 'Promise') {
           context.report({ node, message: 'Avoid creating new promises.' })
         }

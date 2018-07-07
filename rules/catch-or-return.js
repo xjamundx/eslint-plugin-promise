@@ -15,7 +15,7 @@ module.exports = {
       url: getDocsUrl('catch-or-return')
     }
   },
-  create: function(context) {
+  create(context) {
     const options = context.options[0] || {}
     const allowThen = options.allowThen
     let terminationMethod = options.terminationMethod || 'catch'
@@ -25,7 +25,7 @@ module.exports = {
     }
 
     return {
-      ExpressionStatement: function(node) {
+      ExpressionStatement(node) {
         if (!isPromise(node.expression)) {
           return
         }

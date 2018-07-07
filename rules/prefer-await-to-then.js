@@ -13,7 +13,7 @@ module.exports = {
       url: getDocsUrl('prefer-await-to-then')
     }
   },
-  create: function(context) {
+  create(context) {
     /** Returns true if node is inside yield or await expression. */
     function isInsideYieldOrAwait() {
       return context.getAncestors().some(parent => {
@@ -33,7 +33,7 @@ module.exports = {
     }
 
     return {
-      MemberExpression: function(node) {
+      MemberExpression(node) {
         if (isTopLevelScoped() || isInsideYieldOrAwait()) {
           return
         }

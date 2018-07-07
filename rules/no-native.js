@@ -25,7 +25,7 @@ module.exports = {
       url: getDocsUrl('no-native')
     }
   },
-  create: function(context) {
+  create(context) {
     const MESSAGE = '"{{name}}" is not defined.'
 
     /**
@@ -36,7 +36,7 @@ module.exports = {
      * @private
      */
     return {
-      'Program:exit': function() {
+      'Program:exit'() {
         const scope = context.getScope()
 
         scope.implicit.left.forEach(function(ref) {

@@ -9,9 +9,9 @@ module.exports = {
       url: getDocsUrl('no-return-in-finally')
     }
   },
-  create: function(context) {
+  create(context) {
     return {
-      CallExpression: function(node) {
+      CallExpression(node) {
         if (isPromise(node)) {
           if (
             node.callee &&

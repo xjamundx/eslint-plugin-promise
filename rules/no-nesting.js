@@ -15,9 +15,9 @@ module.exports = {
       url: getDocsUrl('no-nesting')
     }
   },
-  create: function(context) {
+  create(context) {
     return {
-      CallExpression: function(node) {
+      CallExpression(node) {
         if (!hasPromiseCallback(node)) return
         if (context.getAncestors().some(isInsidePromise)) {
           context.report({ node, message: 'Avoid nesting promises.' })
