@@ -2,19 +2,20 @@
 
 const getDocsUrl = require('./lib/get-docs-url')
 
-const errorMessage = 'Avoid callbacks. Prefer Async/Await.'
-
 module.exports = {
   meta: {
     docs: {
       url: getDocsUrl('prefer-await-to-callbacks')
+    },
+    messages: {
+      error: 'Avoid callbacks. Prefer Async/Await.'
     }
   },
   create(context) {
     function checkLastParamsForCallback(node) {
       const lastParam = node.params[node.params.length - 1] || {}
       if (lastParam.name === 'callback' || lastParam.name === 'cb') {
-        context.report({ node: lastParam, message: errorMessage })
+        context.report({ node: lastParam, messageId: 'error' })
       }
     }
     function isInsideYieldOrAwait() {
@@ -28,7 +29,7 @@ module.exports = {
       CallExpression(node) {
         // Callbacks aren't allowed.
         if (node.callee.name === 'cb' || node.callee.name === 'callback') {
-          context.report({ node, message: errorMessage })
+          context.report({ node, messageId: 'error' })
           return
         }
 
@@ -50,7 +51,7 @@ module.exports = {
           }
           if (arg.params && arg.params[0] && arg.params[0].name === 'err') {
             if (!isInsideYieldOrAwait()) {
-              context.report({ node: arg, message: errorMessage })
+              context.report({ node: arg, messageId: 'error' })
             }
           }
         }

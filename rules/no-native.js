@@ -23,11 +23,12 @@ module.exports = {
   meta: {
     docs: {
       url: getDocsUrl('no-native')
+    },
+    messages: {
+      name: '"{{name}}" is not defined.'
     }
   },
   create(context) {
-    const MESSAGE = '"{{name}}" is not defined.'
-
     /**
      * Checks for and reports reassigned constants
      *
@@ -47,7 +48,7 @@ module.exports = {
           if (!isDeclared(scope, ref)) {
             context.report({
               node: ref.identifier,
-              message: MESSAGE,
+              messageId: 'name',
               data: { name: ref.identifier.name }
             })
           }

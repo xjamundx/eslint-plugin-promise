@@ -13,6 +13,9 @@ module.exports = {
   meta: {
     docs: {
       url: getDocsUrl('catch-or-return')
+    },
+    messages: {
+      terminationMethod: 'Expected {{ terminationMethod }}() or return'
     }
   },
   create(context) {
@@ -62,7 +65,7 @@ module.exports = {
 
         context.report({
           node,
-          message: 'Expected {{ terminationMethod }}() or return',
+          messageId: 'terminationMethod',
           data: { terminationMethod }
         })
       }

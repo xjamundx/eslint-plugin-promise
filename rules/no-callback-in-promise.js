@@ -14,6 +14,9 @@ module.exports = {
   meta: {
     docs: {
       url: getDocsUrl('no-callback-in-promise')
+    },
+    messages: {
+      callback: 'Avoid calling back inside of a promise.'
     }
   },
   create(context) {
@@ -35,7 +38,7 @@ module.exports = {
             ) {
               context.report({
                 node: node.arguments[0],
-                message: 'Avoid calling back inside of a promise.'
+                messageId: 'callback'
               })
             }
           }
@@ -44,7 +47,7 @@ module.exports = {
         if (context.getAncestors().some(isInsidePromise)) {
           context.report({
             node,
-            message: 'Avoid calling back inside of a promise.'
+            messageId: 'callback'
           })
         }
       }
