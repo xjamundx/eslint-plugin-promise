@@ -10,9 +10,9 @@ const getDocsUrl = require('./lib/get-docs-url')
 const isPromise = require('./lib/is-promise')
 
 function isInPromise(context) {
-  const expression = context.getAncestors().filter(function(node) {
-    return node.type === 'ExpressionStatement'
-  })[0]
+  const expression = context
+    .getAncestors()
+    .filter(node => node.type === 'ExpressionStatement')[0]
   return expression && expression.expression && isPromise(expression.expression)
 }
 

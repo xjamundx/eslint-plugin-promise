@@ -25,7 +25,7 @@ module.exports = {
               node.arguments[0].body.body
             ) {
               if (
-                node.arguments[0].body.body.some(function(statement) {
+                node.arguments[0].body.body.some(statement => {
                   return statement.type === 'ReturnStatement'
                 })
               ) {
