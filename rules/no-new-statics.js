@@ -1,7 +1,13 @@
 'use strict'
 
-const PROMISE_STATICS = require('./lib/promise-statics')
+const matches = require('@macklinu/matches')
 const getDocsUrl = require('./lib/get-docs-url')
+
+const isPromiseStatic = matches({
+  'callee.type': 'MemberExpression',
+  'callee.object.name': 'Promise',
+  'callee.property.name': /all|race|reject|resolve/
+})
 
 module.exports = {
   meta: {
@@ -12,11 +18,7 @@ module.exports = {
   create(context) {
     return {
       NewExpression(node) {
-        if (
-          node.callee.type === 'MemberExpression' &&
-          node.callee.object.name === 'Promise' &&
-          PROMISE_STATICS[node.callee.property.name]
-        ) {
+        if (isPromiseStatic(node)) {
           context.report({
             node,
             message: "Avoid calling 'new' on 'Promise.{{ name }}()'",

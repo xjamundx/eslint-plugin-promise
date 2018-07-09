@@ -1,5 +1,6 @@
 'use strict'
 
+const matches = require('@macklinu/matches')
 const getDocsUrl = require('./lib/get-docs-url')
 
 function isFunctionWithBlockStatement(node) {
@@ -12,13 +13,11 @@ function isFunctionWithBlockStatement(node) {
   return false
 }
 
-function isThenCallExpression(node) {
-  return (
-    node.type === 'CallExpression' &&
-    node.callee.type === 'MemberExpression' &&
-    node.callee.property.name === 'then'
-  )
-}
+const isThenCallExpression = matches({
+  type: 'CallExpression',
+  'callee.type': 'MemberExpression',
+  'callee.property.name': 'then'
+})
 
 function isFirstArgument(node) {
   return (

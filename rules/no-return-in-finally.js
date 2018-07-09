@@ -1,7 +1,15 @@
 'use strict'
 
+const matches = require('@macklinu/matches')
 const getDocsUrl = require('./lib/get-docs-url')
 const isPromise = require('./lib/is-promise')
+
+const isReturnStatement = matches({ type: 'ReturnStatement' })
+
+const doesFinallyContainReturnStatement = matches({
+  'callee.property.name': 'finally',
+  'arguments.0.body.body': (body = []) => body.some(isReturnStatement)
+})
 
 module.exports = {
   meta: {
@@ -12,30 +20,11 @@ module.exports = {
   create(context) {
     return {
       CallExpression(node) {
-        if (isPromise(node)) {
-          if (
-            node.callee &&
-            node.callee.property &&
-            node.callee.property.name === 'finally'
-          ) {
-            if (
-              node.arguments &&
-              node.arguments[0] &&
-              node.arguments[0].body &&
-              node.arguments[0].body.body
-            ) {
-              if (
-                node.arguments[0].body.body.some(statement => {
-                  return statement.type === 'ReturnStatement'
-                })
-              ) {
-                context.report({
-                  node: node.callee.property,
-                  message: 'No return in finally'
-                })
-              }
-            }
-          }
+        if (isPromise(node) && doesFinallyContainReturnStatement(node)) {
+          context.report({
+            node: node.callee.property,
+            message: 'No return in finally'
+          })
         }
       }
     }

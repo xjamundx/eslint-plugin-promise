@@ -6,6 +6,7 @@
 
 'use strict'
 
+const matches = require('@macklinu/matches')
 const getDocsUrl = require('./lib/get-docs-url')
 const isPromise = require('./lib/is-promise')
 
@@ -15,6 +16,12 @@ function isInPromise(context) {
     .filter(node => node.type === 'ExpressionStatement')[0]
   return expression && expression.expression && isPromise(expression.expression)
 }
+
+const isReturningWrappedValue = matches({
+  'argument.type': 'CallExpression',
+  'argument.callee.object.name': 'Promise',
+  'argument.callee.property.name': /resolve|reject/
+})
 
 module.exports = {
   meta: {
@@ -32,22 +39,12 @@ module.exports = {
 
     return {
       ReturnStatement(node) {
-        if (isInPromise(context)) {
-          if (node.argument) {
-            if (node.argument.type === 'CallExpression') {
-              if (node.argument.callee.type === 'MemberExpression') {
-                if (node.argument.callee.object.name === 'Promise') {
-                  if (node.argument.callee.property.name === 'resolve') {
-                    context.report({ node, messageId: 'resolve' })
-                  } else if (
-                    !allowReject &&
-                    node.argument.callee.property.name === 'reject'
-                  ) {
-                    context.report({ node, messageId: 'reject' })
-                  }
-                }
-              }
-            }
+        if (isInPromise(context) && isReturningWrappedValue(node)) {
+          const name = node.argument.callee.property.name
+          if (name === 'resolve') {
+            context.report({ node, messageId: 'resolve' })
+          } else if (!allowReject && name === 'reject') {
+            context.report({ node, messageId: 'reject' })
           }
         }
       }

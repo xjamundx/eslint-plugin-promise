@@ -4,7 +4,7 @@
  */
 'use strict'
 
-const PROMISE_STATICS = require('./promise-statics')
+const PROMISE_STATICS = /all|race|reject|resolve/
 
 function isPromise(expression) {
   return (
@@ -29,7 +29,7 @@ function isPromise(expression) {
       expression.callee.type === 'MemberExpression' &&
       expression.callee.object.type === 'Identifier' &&
       expression.callee.object.name === 'Promise' &&
-      PROMISE_STATICS[expression.callee.property.name])
+      PROMISE_STATICS.test(expression.callee.property.name))
   )
 }
 

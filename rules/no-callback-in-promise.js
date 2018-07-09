@@ -5,10 +5,15 @@
 
 'use strict'
 
+const matches = require('@macklinu/matches')
 const getDocsUrl = require('./lib/get-docs-url')
 const hasPromiseCallback = require('./lib/has-promise-callback')
 const isInsidePromise = require('./lib/is-inside-promise')
 const isCallback = require('./lib/is-callback')
+
+const isFirstArgumentCallback = matches({
+  'arguments.0.name': /callback|cb|next|done/
+})
 
 module.exports = {
   meta: {
@@ -27,20 +32,11 @@ module.exports = {
         if (!isCallback(node, exceptions)) {
           // in general we send you packing if you're not a callback
           // but we also need to watch out for whatever.then(cb)
-          if (hasPromiseCallback(node)) {
-            const name =
-              node.arguments && node.arguments[0] && node.arguments[0].name
-            if (
-              name === 'callback' ||
-              name === 'cb' ||
-              name === 'next' ||
-              name === 'done'
-            ) {
-              context.report({
-                node: node.arguments[0],
-                messageId: 'callback'
-              })
-            }
+          if (hasPromiseCallback(node) && isFirstArgumentCallback(node)) {
+            context.report({
+              node: node.arguments[0],
+              messageId: 'callback'
+            })
           }
           return
         }
