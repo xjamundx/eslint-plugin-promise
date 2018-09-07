@@ -73,5 +73,9 @@
         ]
       }
     ]
+  },
+  "dependencies": {
+    "@macklinu/matches": "^1.0.0",
+    "get-value": "^3.0.1"
   }
 }
