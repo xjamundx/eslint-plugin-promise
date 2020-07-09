@@ -19,7 +19,7 @@
   "scripts": {
     "precommit": "lint-staged --concurrent false",
     "test": "jest --coverage",
-    "lint": "eslint rules __tests__ index.js",
+    "lint": "eslint --report-unused-disable-directives .",
     "format": "prettier --write '**/*.js'"
   },
   "dependencies": {},
@@ -50,7 +50,7 @@
     ],
     "*.js": [
       "prettier --write",
-      "eslint --fix"
+      "eslint --report-unused-disable-directives --fix"
     ],
     "*.+(json|md)": [
       "prettier --write"
