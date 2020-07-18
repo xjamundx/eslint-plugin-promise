@@ -31,5 +31,6 @@ Promise.all([p1, p2])
 
 ## When Not To Use It
 
-If you do not want to be notified when calling `new` on a Promise static method,
-you can safely disable this rule.
+If you do not want to be notified when calling `new` on a Promise static method
+(for example when using a type checker like Flow or Typescript), you can safely
+disable this rule.
