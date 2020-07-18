@@ -6,7 +6,8 @@ chain the promises.
 
 ## Rule Details
 
-
+Nesting `then()` or `catch()` statements is frequently redundant and does not
+utilise promise chaining. This can result in code similar to "callback hell".
 
 Examples of **incorrect** code for this rule:
 
