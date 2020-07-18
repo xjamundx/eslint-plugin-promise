@@ -35,7 +35,7 @@ Examples of **correct** code for this rule:
 myPromise.then((val) => val * 2);
 myPromise.then(function(val) { return val * 2; });
 myPromise.then(doSomething); // could be either
-myPromise.then((b) => { if (b) { return "yes" } else { return "no" } });
+myPromise.then((b) => { if (b) { return 'yes' } else { return 'no' } });
 ```
 
 ## When Not To Use It
