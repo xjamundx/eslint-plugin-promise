@@ -11,7 +11,7 @@ problems reported by this rule.
 This rule is aimed at flagging instances where a Promise static method is called
 with `new`.
 
-Examples for **incorrect** code for this rule:
+Examples of **incorrect** code for this rule:
 
 ```js
 new Promise.resolve(value)
@@ -20,7 +20,7 @@ new Promise.race([p1, p2])
 new Promise.all([p1, p2])
 ```
 
-Examples for **correct** code for this rule:
+Examples of **correct** code for this rule:
 
 ```js
 Promise.resolve(value)
