@@ -4,8 +4,8 @@ const rule = require('../rules/avoid-new')
 const RuleTester = require('eslint').RuleTester
 const ruleTester = new RuleTester({
   parserOptions: {
-    ecmaVersion: 6
-  }
+    ecmaVersion: 6,
+  },
 })
 
 const errorMessage = 'Avoid creating new promises.'
@@ -17,21 +17,21 @@ ruleTester.run('avoid-new', rule, {
     'Promise.all()',
     'new Horse()',
     'new PromiseLikeThing()',
-    'new Promise.resolve()'
+    'new Promise.resolve()',
   ],
 
   invalid: [
     {
       code: 'var x = new Promise(function (x, y) {})',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'new Promise()',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'Thing(new Promise(() => {}))',
-      errors: [{ message: errorMessage }]
-    }
-  ]
+      errors: [{ message: errorMessage }],
+    },
+  ],
 })

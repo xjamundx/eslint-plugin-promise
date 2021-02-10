@@ -9,8 +9,8 @@ module.exports = {
     docs: {
       description:
         'Ensures the proper number of arguments are passed to Promise functions',
-      url: getDocsUrl('valid-params')
-    }
+      url: getDocsUrl('valid-params'),
+    },
   },
   create(context) {
     return {
@@ -30,7 +30,7 @@ module.exports = {
                 node,
                 message:
                   'Promise.{{ name }}() requires 0 or 1 arguments, but received {{ numArgs }}',
-                data: { name, numArgs }
+                data: { name, numArgs },
               })
             }
             break
@@ -40,7 +40,7 @@ module.exports = {
                 node,
                 message:
                   'Promise.{{ name }}() requires 1 or 2 arguments, but received {{ numArgs }}',
-                data: { name, numArgs }
+                data: { name, numArgs },
               })
             }
             break
@@ -53,14 +53,14 @@ module.exports = {
                 node,
                 message:
                   'Promise.{{ name }}() requires 1 argument, but received {{ numArgs }}',
-                data: { name, numArgs }
+                data: { name, numArgs },
               })
             }
             break
           default:
             break
         }
-      }
+      },
     }
-  }
+  },
 }

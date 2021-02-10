@@ -4,8 +4,8 @@ const rule = require('../rules/always-return')
 const RuleTester = require('eslint').RuleTester
 const ruleTester = new RuleTester({
   parserOptions: {
-    ecmaVersion: 6
-  }
+    ecmaVersion: 6,
+  },
 })
 
 const message = 'Each then() should return a value or throw'
@@ -41,58 +41,58 @@ ruleTester.run('always-return', rule, {
             two: x === 2 ? 1 : 0
           }
         })
-      })`
+      })`,
   ],
 
   invalid: [
     {
       code: 'hey.then(x => {})',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then(function() { })',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then(function() { }).then(x)',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then(function() { }).then(function() { })',
-      errors: [{ message }, { message }]
+      errors: [{ message }, { message }],
     },
     {
       code: 'hey.then(function() { return; }).then(function() { })',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then(function() { doSomethingWicked(); })',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then(function() { if (x) { return x; } })',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then(function() { if (x) { return x; } else { }})',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then(function() { if (x) { } else { return x; }})',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code:
         'hey.then(function() { if (x) { return you.then(function() { return x; }); } })',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then( x => { x ? x.id : null })',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: 'hey.then(function(x) { x ? x.id : null })',
-      errors: [{ message }]
+      errors: [{ message }],
     },
     {
       code: `(function() {
@@ -105,7 +105,7 @@ ruleTester.run('always-return', rule, {
           })
         })
       })()`,
-      errors: [{ message }]
-    }
-  ]
+      errors: [{ message }],
+    },
+  ],
 })

@@ -58,8 +58,8 @@ module.exports = {
   meta: {
     type: 'problem',
     docs: {
-      url: getDocsUrl('always-return')
-    }
+      url: getDocsUrl('always-return'),
+    },
   },
   create(context) {
     // funcInfoStack is a stack representing the stack of currently executing
@@ -120,7 +120,7 @@ module.exports = {
       onCodePathStart() {
         funcInfoStack.push({
           branchIDStack: [],
-          branchInfoMap: {}
+          branchInfoMap: {},
         })
       },
 
@@ -131,7 +131,7 @@ module.exports = {
           return
         }
 
-        path.finalSegments.forEach(segment => {
+        path.finalSegments.forEach((segment) => {
           const id = segment.id
           const branch = funcInfo.branchInfoMap[id]
           if (!branch.good) {
@@ -148,11 +148,11 @@ module.exports = {
 
             context.report({
               message: 'Each then() should return a value or throw',
-              node: branch.node
+              node: branch.node,
             })
           }
         })
-      }
+      },
     }
-  }
+  },
 }

@@ -6,8 +6,8 @@ module.exports = {
   meta: {
     type: 'suggestion',
     docs: {
-      url: getDocsUrl('param-names')
-    }
+      url: getDocsUrl('param-names'),
+    },
   },
   create(context) {
     return {
@@ -26,11 +26,11 @@ module.exports = {
             context.report({
               node,
               message:
-                'Promise constructor parameters must be named resolve, reject'
+                'Promise constructor parameters must be named resolve, reject',
             })
           }
         }
-      }
+      },
     }
-  }
+  },
 }

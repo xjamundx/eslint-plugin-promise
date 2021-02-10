@@ -7,9 +7,9 @@ module.exports = {
   meta: {
     type: 'problem',
     docs: {
-      url: getDocsUrl('no-new-statics')
+      url: getDocsUrl('no-new-statics'),
     },
-    fixable: 'code'
+    fixable: 'code',
   },
   create(context) {
     return {
@@ -28,10 +28,10 @@ module.exports = {
                 [node.start, node.start + 'new '.length],
                 ''
               )
-            }
+            },
           })
         }
-      }
+      },
     }
-  }
+  },
 }

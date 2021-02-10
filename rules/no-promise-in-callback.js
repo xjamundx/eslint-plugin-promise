@@ -13,8 +13,8 @@ module.exports = {
   meta: {
     type: 'suggestion',
     docs: {
-      url: getDocsUrl('no-promise-in-callback')
-    }
+      url: getDocsUrl('no-promise-in-callback'),
+    },
   },
   create(context) {
     return {
@@ -31,10 +31,10 @@ module.exports = {
         if (context.getAncestors().some(isInsideCallback)) {
           context.report({
             node: node.callee,
-            message: 'Avoid using promises inside of callbacks.'
+            message: 'Avoid using promises inside of callbacks.',
           })
         }
-      }
+      },
     }
-  }
+  },
 }

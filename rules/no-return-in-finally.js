@@ -7,8 +7,8 @@ module.exports = {
   meta: {
     type: 'problem',
     docs: {
-      url: getDocsUrl('no-return-in-finally')
-    }
+      url: getDocsUrl('no-return-in-finally'),
+    },
   },
   create(context) {
     return {
@@ -26,19 +26,19 @@ module.exports = {
               node.arguments[0].body.body
             ) {
               if (
-                node.arguments[0].body.body.some(statement => {
+                node.arguments[0].body.body.some((statement) => {
                   return statement.type === 'ReturnStatement'
                 })
               ) {
                 context.report({
                   node: node.callee.property,
-                  message: 'No return in finally'
+                  message: 'No return in finally',
                 })
               }
             }
           }
         }
-      }
+      },
     }
-  }
+  },
 }

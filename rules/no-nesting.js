@@ -13,8 +13,8 @@ module.exports = {
   meta: {
     type: 'suggestion',
     docs: {
-      url: getDocsUrl('no-nesting')
-    }
+      url: getDocsUrl('no-nesting'),
+    },
   },
   create(context) {
     return {
@@ -23,7 +23,7 @@ module.exports = {
         if (context.getAncestors().some(isInsidePromise)) {
           context.report({ node, message: 'Avoid nesting promises.' })
         }
-      }
+      },
     }
-  }
+  },
 }

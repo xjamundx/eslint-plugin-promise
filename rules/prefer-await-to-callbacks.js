@@ -6,11 +6,11 @@ module.exports = {
   meta: {
     type: 'suggestion',
     docs: {
-      url: getDocsUrl('prefer-await-to-callbacks')
+      url: getDocsUrl('prefer-await-to-callbacks'),
     },
     messages: {
-      error: 'Avoid callbacks. Prefer Async/Await.'
-    }
+      error: 'Avoid callbacks. Prefer Async/Await.',
+    },
   },
   create(context) {
     function checkLastParamsForCallback(node) {
@@ -20,7 +20,7 @@ module.exports = {
       }
     }
     function isInsideYieldOrAwait() {
-      return context.getAncestors().some(parent => {
+      return context.getAncestors().some((parent) => {
         return (
           parent.type === 'AwaitExpression' || parent.type === 'YieldExpression'
         )
@@ -59,7 +59,7 @@ module.exports = {
       },
       FunctionDeclaration: checkLastParamsForCallback,
       FunctionExpression: checkLastParamsForCallback,
-      ArrowFunctionExpression: checkLastParamsForCallback
+      ArrowFunctionExpression: checkLastParamsForCallback,
     }
-  }
+  },
 }

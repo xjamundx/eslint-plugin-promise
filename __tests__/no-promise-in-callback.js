@@ -4,8 +4,8 @@ const rule = require('../rules/no-promise-in-callback')
 const RuleTester = require('eslint').RuleTester
 const ruleTester = new RuleTester({
   parserOptions: {
-    ecmaVersion: 6
-  }
+    ecmaVersion: 6,
+  },
 })
 
 const errorMessage = 'Avoid using promises inside of callbacks.'
@@ -37,49 +37,49 @@ ruleTester.run('no-promise-in-callback', rule, {
     'doThing().then(() => Promise.all([a]))',
 
     // weird case, we assume it's not a big deal if you return (even though you may be cheating)
-    'a(function(err) { return doThing().then(a) })'
+    'a(function(err) { return doThing().then(a) })',
   ],
 
   invalid: [
     {
       code: 'a(function(err) { doThing().then(a) })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'a(function(error, zup, supa) { doThing().then(a) })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'a(function(error) { doThing().then(a) })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
 
     // arrow function
     {
       code: 'a((error) => { doThing().then(a) })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'a((error) => doThing().then(a))',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'a((err, data) => { doThing().then(a) })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'a((err, data) => doThing().then(a))',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
 
     // function decl. and similar (why not)
     {
       code: 'function x(err) { Promise.all() }',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'let x = (err) => doThingWith(err).then(a)',
-      errors: [{ message: errorMessage }]
-    }
-  ]
+      errors: [{ message: errorMessage }],
+    },
+  ],
 })
