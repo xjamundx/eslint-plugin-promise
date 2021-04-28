@@ -6,11 +6,11 @@ module.exports = {
   meta: {
     type: 'suggestion',
     docs: {
-      url: getDocsUrl('prefer-await-to-callbacks')
+      url: getDocsUrl('prefer-await-to-callbacks'),
     },
     messages: {
-      error: 'Avoid callbacks. Prefer Async/Await.'
-    }
+      error: 'Avoid callbacks. Prefer Async/Await.',
+    },
   },
   create(context) {
     function checkLastParamsForCallback(node) {
@@ -20,7 +20,7 @@ module.exports = {
       }
     }
     function isInsideYieldOrAwait() {
-      return context.getAncestors().some(parent => {
+      return context.getAncestors().some((parent) => {
         return (
           parent.type === 'AwaitExpression' || parent.type === 'YieldExpression'
         )
@@ -50,7 +50,36 @@ module.exports = {
           ) {
             return
           }
-          if (arg.params && arg.params[0] && arg.params[0].name === 'err') {
+
+          // carve out exemption for map/filter/etc
+          const arrayMethods = [
+            'map',
+            'every',
+            'forEach',
+            'some',
+            'find',
+            'filter',
+          ]
+          const isLodash =
+            node.callee.object &&
+            ['lodash', 'underscore', '_'].includes(node.callee.object.name)
+          const callsArrayMethod =
+            node.callee.property &&
+            arrayMethods.includes(node.callee.property.name) &&
+            (node.arguments.length === 1 ||
+              (node.arguments.length === 2 && isLodash))
+          const isArrayMethod =
+            node.callee.name &&
+            arrayMethods.includes(node.callee.name) &&
+            node.arguments.length === 2
+          if (callsArrayMethod || isArrayMethod) return
+
+          // actually check for callbacks (I know this is the worst)
+          if (
+            arg.params &&
+            arg.params[0] &&
+            (arg.params[0].name === 'err' || arg.params[0].name === 'error')
+          ) {
             if (!isInsideYieldOrAwait()) {
               context.report({ node: arg, messageId: 'error' })
             }
@@ -59,7 +88,7 @@ module.exports = {
       },
       FunctionDeclaration: checkLastParamsForCallback,
       FunctionExpression: checkLastParamsForCallback,
-      ArrowFunctionExpression: checkLastParamsForCallback
+      ArrowFunctionExpression: checkLastParamsForCallback,
     }
-  }
+  },
 }

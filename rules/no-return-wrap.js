@@ -12,7 +12,7 @@ const isPromise = require('./lib/is-promise')
 function isInPromise(context) {
   let functionNode = context
     .getAncestors()
-    .filter(node => {
+    .filter((node) => {
       return (
         node.type === 'ArrowFunctionExpression' ||
         node.type === 'FunctionExpression'
@@ -39,12 +39,12 @@ module.exports = {
   meta: {
     type: 'suggestion',
     docs: {
-      url: getDocsUrl('no-return-wrap')
+      url: getDocsUrl('no-return-wrap'),
     },
     messages: {
       resolve: 'Avoid wrapping return values in Promise.resolve',
-      reject: 'Expected throw instead of Promise.reject'
-    }
+      reject: 'Expected throw instead of Promise.reject',
+    },
   },
   create(context) {
     const options = context.options[0] || {}
@@ -77,7 +77,7 @@ module.exports = {
       },
       'ArrowFunctionExpression > CallExpression'(node) {
         checkCallExpression(node, node)
-      }
+      },
     }
-  }
+  },
 }

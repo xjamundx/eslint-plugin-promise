@@ -13,11 +13,11 @@ module.exports = {
   meta: {
     type: 'problem',
     docs: {
-      url: getDocsUrl('catch-or-return')
+      url: getDocsUrl('catch-or-return'),
     },
     messages: {
-      terminationMethod: 'Expected {{ terminationMethod }}() or return'
-    }
+      terminationMethod: 'Expected {{ terminationMethod }}() or return',
+    },
   },
   create(context) {
     const options = context.options[0] || {}
@@ -88,9 +88,9 @@ module.exports = {
         context.report({
           node,
           messageId: 'terminationMethod',
-          data: { terminationMethod }
+          data: { terminationMethod },
         })
-      }
+      },
     }
-  }
+  },
 }

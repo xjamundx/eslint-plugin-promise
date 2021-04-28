@@ -9,8 +9,8 @@ module.exports = {
     docs: {
       description:
         'Ensures the proper number of arguments are passed to Promise functions',
-      url: getDocsUrl('valid-params')
-    }
+      url: getDocsUrl('valid-params'),
+    },
   },
   create(context) {
     return {
@@ -22,6 +22,7 @@ module.exports = {
         const name = node.callee.property.name
         const numArgs = node.arguments.length
 
+        // istanbul ignore next -- `isPromise` filters out others
         switch (name) {
           case 'resolve':
           case 'reject':
@@ -30,7 +31,7 @@ module.exports = {
                 node,
                 message:
                   'Promise.{{ name }}() requires 0 or 1 arguments, but received {{ numArgs }}',
-                data: { name, numArgs }
+                data: { name, numArgs },
               })
             }
             break
@@ -40,7 +41,7 @@ module.exports = {
                 node,
                 message:
                   'Promise.{{ name }}() requires 1 or 2 arguments, but received {{ numArgs }}',
-                data: { name, numArgs }
+                data: { name, numArgs },
               })
             }
             break
@@ -53,14 +54,15 @@ module.exports = {
                 node,
                 message:
                   'Promise.{{ name }}() requires 1 argument, but received {{ numArgs }}',
-                data: { name, numArgs }
+                data: { name, numArgs },
               })
             }
             break
           default:
+            // istanbul ignore next -- `isPromise` filters out others
             break
         }
-      }
+      },
     }
-  }
+  },
 }

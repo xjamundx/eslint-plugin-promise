@@ -4,8 +4,8 @@ const rule = require('../rules/no-return-wrap')
 const RuleTester = require('eslint').RuleTester
 const ruleTester = new RuleTester({
   parserOptions: {
-    ecmaVersion: 6
-  }
+    ecmaVersion: 6,
+  },
 })
 
 const rejectMessage = 'Expected throw instead of Promise.reject'
@@ -50,7 +50,7 @@ ruleTester.run('no-return-wrap', rule, {
     // allow reject if specified
     {
       code: 'doThing().then(function() { return Promise.reject(4) })',
-      options: [{ allowReject: true }]
+      options: [{ allowReject: true }],
     },
 
     // not function bind
@@ -58,7 +58,7 @@ ruleTester.run('no-return-wrap', rule, {
 
     {
       code: 'doThing().then(() => Promise.reject(4))',
-      options: [{ allowReject: true }]
+      options: [{ allowReject: true }],
     },
 
     // Call expressions that aren't Promise.resolve/reject
@@ -67,60 +67,60 @@ ruleTester.run('no-return-wrap', rule, {
     'doThing().then(() => { return a() })',
     'doThing().then(() => { return Promise.a() })',
     'doThing().then(() => a())',
-    'doThing().then(() => Promise.a())'
+    'doThing().then(() => Promise.a())',
   ],
 
   invalid: [
     // wrapped resolve is bad
     {
       code: 'doThing().then(function() { return Promise.resolve(4) })',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
     {
       code: 'doThing().then(null, function() { return Promise.resolve(4) })',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
     {
       code: 'doThing().catch(function() { return Promise.resolve(4) })',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
 
     // wrapped reject is bad
     {
       code: 'doThing().then(function() { return Promise.reject(4) })',
-      errors: [{ message: rejectMessage }]
+      errors: [{ message: rejectMessage }],
     },
     {
       code: 'doThing().then(null, function() { return Promise.reject(4) })',
-      errors: [{ message: rejectMessage }]
+      errors: [{ message: rejectMessage }],
     },
     {
       code: 'doThing().catch(function() { return Promise.reject(4) })',
-      errors: [{ message: rejectMessage }]
+      errors: [{ message: rejectMessage }],
     },
 
     // needs to also look at weird paths
     {
       code:
         'doThing().then(function(x) { if (x>1) { return Promise.resolve(4) } else { throw "bad" } })',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
     {
       code:
         'doThing().then(function(x) { if (x>1) { return Promise.reject(4) } })',
-      errors: [{ message: rejectMessage }]
+      errors: [{ message: rejectMessage }],
     },
     {
       code:
         'doThing().then(null, function() { if (true && false) { return Promise.resolve() } })',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
 
     // should do both
     {
       code:
         'doThing().catch(function(x) {if (x) { return Promise.resolve(4) } else { return Promise.reject() } })',
-      errors: [{ message: resolveMessage }, { message: rejectMessage }]
+      errors: [{ message: resolveMessage }, { message: rejectMessage }],
     },
 
     // should work someday
@@ -137,7 +137,7 @@ ruleTester.run('no-return-wrap', rule, {
         })
         return
       })`,
-      errors: [{ message: resolveMessage, line: 4 }]
+      errors: [{ message: resolveMessage, line: 4 }],
     },
     {
       code: `
@@ -147,7 +147,7 @@ ruleTester.run('no-return-wrap', rule, {
         })
         return
       })`,
-      errors: [{ message: resolveMessage, line: 4 }]
+      errors: [{ message: resolveMessage, line: 4 }],
     },
     {
       code: `
@@ -158,7 +158,7 @@ ruleTester.run('no-return-wrap', rule, {
           })
         })
       })`,
-      errors: [{ message: resolveMessage, line: 5 }]
+      errors: [{ message: resolveMessage, line: 5 }],
     },
     {
       code: `
@@ -172,7 +172,7 @@ ruleTester.run('no-return-wrap', rule, {
           })
         })
       })`,
-      errors: [{ message: resolveMessage, line: 8 }]
+      errors: [{ message: resolveMessage, line: 8 }],
     },
 
     // other than "ExpressionStatement"
@@ -186,7 +186,7 @@ ruleTester.run('no-return-wrap', rule, {
         },
       }
       `,
-      errors: [{ message: resolveMessage, line: 5 }]
+      errors: [{ message: resolveMessage, line: 5 }],
     },
     {
       code: `
@@ -196,25 +196,25 @@ ruleTester.run('no-return-wrap', rule, {
         })
       );
       `,
-      errors: [{ message: resolveMessage, line: 4 }]
+      errors: [{ message: resolveMessage, line: 4 }],
     },
 
     // function bind
     {
       code:
         'doThing().then((function() { return Promise.resolve(4) }).bind(this))',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
     {
       code:
         'doThing().then((function() { return Promise.resolve(4) }).bind(this).bind(this))',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
 
     // arrow functions and other things
     {
       code: 'doThing().then(() => { return Promise.resolve(4) })',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
 
     // issue #150
@@ -226,17 +226,17 @@ ruleTester.run('no-return-wrap', rule, {
         })
       }
       `,
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
 
     // issue #193
     {
       code: 'doThing().then(() => Promise.resolve(4))',
-      errors: [{ message: resolveMessage }]
+      errors: [{ message: resolveMessage }],
     },
     {
       code: 'doThing().then(() => Promise.reject(4))',
-      errors: [{ message: rejectMessage }]
-    }
-  ]
+      errors: [{ message: rejectMessage }],
+    },
+  ],
 })

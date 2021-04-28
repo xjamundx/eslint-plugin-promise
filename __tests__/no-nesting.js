@@ -4,8 +4,8 @@ const rule = require('../rules/no-nesting')
 const RuleTester = require('eslint').RuleTester
 const ruleTester = new RuleTester({
   parserOptions: {
-    ecmaVersion: 6
-  }
+    ecmaVersion: 6,
+  },
 })
 
 const errorMessage = 'Avoid nesting promises.'
@@ -44,41 +44,41 @@ ruleTester.run('no-nesting', rule, {
     'doThing().then(function() { return Promise.all([a,b,c]) })',
     'doThing().then(function() { return Promise.resolve(4) })',
     'doThing().then(() => Promise.resolve(4))',
-    'doThing().then(() => Promise.all([a]))'
+    'doThing().then(() => Promise.all([a]))',
   ],
 
   invalid: [
     {
       code: 'doThing().then(function() { a.then() })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'doThing().then(function() { b.catch() })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'doThing().then(function() { return a.then() })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'doThing().then(function() { return b.catch() })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'doThing().then(() => { a.then() })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'doThing().then(() => { b.catch() })',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'doThing().then(() => a.then())',
-      errors: [{ message: errorMessage }]
+      errors: [{ message: errorMessage }],
     },
     {
       code: 'doThing().then(() => b.catch())',
-      errors: [{ message: errorMessage }]
-    }
-  ]
+      errors: [{ message: errorMessage }],
+    },
+  ],
 })

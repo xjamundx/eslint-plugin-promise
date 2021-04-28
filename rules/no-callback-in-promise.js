@@ -14,11 +14,11 @@ module.exports = {
   meta: {
     type: 'suggestion',
     docs: {
-      url: getDocsUrl('no-callback-in-promise')
+      url: getDocsUrl('no-callback-in-promise'),
     },
     messages: {
-      callback: 'Avoid calling back inside of a promise.'
-    }
+      callback: 'Avoid calling back inside of a promise.',
+    },
   },
   create(context) {
     return {
@@ -39,7 +39,7 @@ module.exports = {
             ) {
               context.report({
                 node: node.arguments[0],
-                messageId: 'callback'
+                messageId: 'callback',
               })
             }
           }
@@ -48,10 +48,10 @@ module.exports = {
         if (context.getAncestors().some(isInsidePromise)) {
           context.report({
             node,
-            messageId: 'callback'
+            messageId: 'callback',
           })
         }
-      }
+      },
     }
-  }
+  },
 }

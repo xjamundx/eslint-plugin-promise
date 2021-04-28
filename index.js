@@ -15,14 +15,14 @@ module.exports = {
     'avoid-new': require('./rules/avoid-new'),
     'no-new-statics': require('./rules/no-new-statics'),
     'no-return-in-finally': require('./rules/no-return-in-finally'),
-    'valid-params': require('./rules/valid-params')
+    'valid-params': require('./rules/valid-params'),
   },
   rulesConfig: {
     'param-names': 1,
     'always-return': 1,
     'no-return-wrap': 1,
     'no-native': 0,
-    'catch-or-return': 1
+    'catch-or-return': 1,
   },
   configs: {
     recommended: {
@@ -39,8 +39,8 @@ module.exports = {
         'promise/avoid-new': 'off',
         'promise/no-new-statics': 'error',
         'promise/no-return-in-finally': 'warn',
-        'promise/valid-params': 'warn'
-      }
-    }
-  }
+        'promise/valid-params': 'warn',
+      },
+    },
+  },
 }

@@ -35,6 +35,7 @@ function isInlineThenFunctionExpression(node) {
 }
 
 function hasParentReturnStatement(node) {
+  // istanbul ignore else -- not reachable given not checking `Program`
   if (node && node.parent && node.parent.type) {
     // if the parent is a then, and we haven't returned anything, fail
     if (isThenCallExpression(node.parent)) {
@@ -47,6 +48,7 @@ function hasParentReturnStatement(node) {
     return hasParentReturnStatement(node.parent)
   }
 
+  // istanbul ignore next -- not reachable given not checking `Program`
   return false
 }
 
@@ -58,8 +60,8 @@ module.exports = {
   meta: {
     type: 'problem',
     docs: {
-      url: getDocsUrl('always-return')
-    }
+      url: getDocsUrl('always-return'),
+    },
   },
   create(context) {
     // funcInfoStack is a stack representing the stack of currently executing
@@ -120,7 +122,7 @@ module.exports = {
       onCodePathStart() {
         funcInfoStack.push({
           branchIDStack: [],
-          branchInfoMap: {}
+          branchInfoMap: {},
         })
       },
 
@@ -131,7 +133,7 @@ module.exports = {
           return
         }
 
-        path.finalSegments.forEach(segment => {
+        path.finalSegments.forEach((segment) => {
           const id = segment.id
           const branch = funcInfo.branchInfoMap[id]
           if (!branch.good) {
@@ -139,20 +141,13 @@ module.exports = {
               return
             }
 
-            // check shortcircuit syntax like `x && x()` and `y || x()``
-            const prevSegments = segment.prevSegments
-            for (let ii = prevSegments.length - 1; ii >= 0; --ii) {
-              const prevSegment = prevSegments[ii]
-              if (funcInfo.branchInfoMap[prevSegment.id].good) return
-            }
-
             context.report({
               message: 'Each then() should return a value or throw',
-              node: branch.node
+              node: branch.node,
             })
           }
         })
-      }
+      },
     }
-  }
+  },
 }

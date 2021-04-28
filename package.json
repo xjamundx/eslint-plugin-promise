@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-promise",
-  "version": "4.2.1",
+  "version": "5.1.0",
   "description": "Enforce best practices for JavaScript promises",
   "keywords": [
     "eslint",
@@ -18,27 +18,30 @@
   "bugs": "https://github.com/xjamundx/eslint-plugin-promise/issues",
   "scripts": {
     "precommit": "lint-staged --concurrent false",
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "eslint rules __tests__ index.js",
     "format": "prettier --write '**/*.js'"
   },
   "dependencies": {},
   "devDependencies": {
-    "doctoc": "^1.4.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^3.0.1",
-    "eslint-plugin-eslint-plugin": "^2.2.1",
-    "eslint-plugin-jest": "^23.13.1",
+    "doctoc": "^2.0.0",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-eslint-plugin": "^3.0.0",
+    "eslint-plugin-jest": "^24.3.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^2.6.2",
-    "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "jest-runner-eslint": "^0.8.0",
-    "lint-staged": "^10.2.4",
-    "prettier": "^1.14.2"
+    "eslint-plugin-prettier": "^3.3.1",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "jest-runner-eslint": "^0.10.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
+  },
+  "peerDependencies": {
+    "eslint": "^7.0.0"
   },
   "engines": {
-    "node": ">=6"
+    "node": "^10.12.0 || >=12.0.0"
   },
   "license": "ISC",
   "lint-staged": {
@@ -59,6 +62,14 @@
     "proseWrap": "always"
   },
   "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
     "projects": [
       {
         "displayName": "test",

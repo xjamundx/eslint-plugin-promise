@@ -1,3 +1,27 @@
+## 5.1.0
+
+- Included `catch()` and `finally()` in `prefer-await-to-then` #196
+- Added some additional tests and upgraded some dev deps #196
+- Exempted array methods in prefer-await-to-callbacks ([#212](https://github.com/xjamundx/eslint-plugin-promise/issues/212))
+
+## 5.0.0
+
+- ESLint 7.0 Support
+
+## 4.3.1.
+
+- Updated and applied prettier
+
+## 4.3.0
+
+- https://github.com/xjamundx/eslint-plugin-promise/pull/202
+- Udpated jest
+
+## 4.2.2
+
+- Added license
+- Dependabot security updates
+
 ## 4.2.1
 
 - Added more use cases to `no-return-wrap`

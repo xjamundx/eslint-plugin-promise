@@ -11,8 +11,8 @@ module.exports = {
   meta: {
     type: 'suggestion',
     docs: {
-      url: getDocsUrl('avoid-new')
-    }
+      url: getDocsUrl('avoid-new'),
+    },
   },
   create(context) {
     return {
@@ -20,7 +20,7 @@ module.exports = {
         if (node.callee.name === 'Promise') {
           context.report({ node, message: 'Avoid creating new promises.' })
         }
-      }
+      },
     }
-  }
+  },
 }
