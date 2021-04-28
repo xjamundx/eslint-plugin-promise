@@ -3,18 +3,33 @@
 Disallow return statements inside a callback passed to `finally()`, since
 nothing would consume what's returned.
 
-#### Valid
+## Rule Details
 
-```js
-myPromise.finally(function(val) {
-  console.log('value:', val)
-})
-```
+Returning statements inside a `finally()` callback does not have any effect and
+can indicate a misunderstanding of how `finally()` works.
 
-#### Invalid
+This rule does not report returning with concise arrow function expressions,
+because it can be used to avoid unnecessary braces.
+
+Examples of **incorrect** code for this rule:
 
 ```js
 myPromise.finally(function(val) {
   return val
 })
 ```
+
+Examples of **correct** code for this rule:
+
+```js
+myPromise.finally(function(val) {
+  console.log('value:', val)
+})
+
+myPromise.finally(val => console.log('value:', val))
+```
+
+## When Not To Use It
+
+If you do not want to be notified when using `return` in `finally()` callbacks,
+you can safely disable this rule.

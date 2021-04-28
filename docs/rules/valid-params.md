@@ -60,5 +60,5 @@ somePromise().finally(console.log)
 ## When Not To Use It
 
 If you do not want to be notified when passing an invalid number of arguments to
-a Promise function (for example, when using a typechecker like Flow), you can
-safely disable this rule.
+a Promise function (for example, when using a type checker like Flow or
+Typescript), you can safely disable this rule.
