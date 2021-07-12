@@ -20,8 +20,8 @@ module.exports = {
           }
 
           if (
-            params[0].name !== 'resolve' ||
-            (params[1] && params[1].name !== 'reject')
+            (params[0].name !== 'resolve' && params[0].name !== '_resolve') ||
+            (params[1] && params[1].name !== 'reject' && params[1].name !== '_reject')
           ) {
             context.report({
               node,

@@ -13,7 +13,11 @@ const message = 'Promise constructor parameters must be named resolve, reject'
 ruleTester.run('param-names', rule, {
   valid: [
     'new Promise(function(resolve, reject) {})',
+    'new Promise(function(resolve, _reject) {})',
+    'new Promise(function(_resolve, reject) {})',
+    'new Promise(function(_resolve, _reject) {})',
     'new Promise(function(resolve) {})',
+    'new Promise(function(_resolve) {})',
     'new Promise(resolve => {})',
     'new Promise((resolve, reject) => {})',
     'new Promise(() => {})',
